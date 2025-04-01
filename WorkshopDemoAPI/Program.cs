@@ -1,8 +1,8 @@
 using System.Reflection;
 using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WorkshopDemoAPI.Data;
+using WorkshopDemoAPI.Middleware;
 using WorkshopDemoAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,11 +17,6 @@ builder.Services.AddDbContext<WorkshopDemoDbContext>(options => options.UseNpgsq
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IEmailService, MailchimpEmailServiceProvider>();
 
-builder.Services.AddSingleton<IGuidGeneratorSingleton, GuidGenerator>();
-builder.Services.AddScoped<IGuidGeneratorScoped, GuidGenerator>();
-builder.Services.AddTransient<IGuidGeneratorTransient, GuidGenerator>();
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,19 +28,26 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.Use(async (context, next) =>
+{
+    // code runs here before next middleware is invoked
+    await next.Invoke();
+    // dode runs here after response is going back
+});
+
+app.UseCorrelationIdMiddleware();
+// app.UseStaticFiles();
+// app.UseCookiePolicy();
+// app.UseRateLimiter();
+// app.UseRequestLocalization();
+// app.UseCors();
+
+//app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+// app.UseResponseCompression();
+// app.UseResponseCaching();
 
-app.MapGet("/now", ([FromServices]IGuidGeneratorSingleton guidSingleton,
-    [FromServices]IGuidGeneratorScoped guidScoped1,
-    [FromServices]IGuidGeneratorScoped guidScoped2,
-    [FromServices]IGuidGeneratorTransient guidTransient1,
-    [FromServices]IGuidGeneratorTransient guidTransient2) =>
-{
-    return $"Singleton instance: {guidSingleton.Value}\r\n\r\n" +
-           $"Scoped instance 1: {guidScoped1.Value}\r\nScoped instance 2: {guidScoped2.Value}\r\n\r\n" +
-           $"Transient instance 1: {guidTransient1.Value}\r\nTransient instance 2: {guidTransient2.Value}";
-});
+app.MapControllers();
 
 app.Run();
