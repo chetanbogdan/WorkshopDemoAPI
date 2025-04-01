@@ -1,5 +1,6 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WorkshopDemoAPI.Data;
 using WorkshopDemoAPI.Entities;
 
@@ -13,17 +14,17 @@ namespace WorkshopDemoAPI.Controllers
         private readonly IValidator<Country> _countryValidator = countryValidator ?? throw new ArgumentNullException(nameof(countryValidator));
 
         [HttpGet]
-        public ActionResult<List<Country>> GetCountries()
+        public async Task<ActionResult<List<Country>>> GetCountries()
         {
-            var countries = _context.Countries.ToList();
+            var countries = await _context.Countries.ToListAsync();
             
             return Ok(countries);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Country> GetCountryById(Guid id)
+        public async Task<ActionResult<Country>> GetCountryById(Guid id)
         {
-            var country = _context.Countries.Find(id);
+            var country = await _context.Countries.FindAsync(id);
 
             if (country is null)
             {
@@ -34,9 +35,9 @@ namespace WorkshopDemoAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCountry(Country country)
+        public async Task<ActionResult> AddCountry(Country country)
         {
-            var validationResult = _countryValidator.Validate(country);
+            var validationResult = await _countryValidator.ValidateAsync(country);
 
             if (!validationResult.IsValid)
             {
@@ -44,23 +45,23 @@ namespace WorkshopDemoAPI.Controllers
             }
             
             country.Id = Guid.NewGuid();
-            _context.Countries.Add(country);
-            _context.SaveChanges();
+            await _context.Countries.AddAsync(country);
+            await _context.SaveChangesAsync();
 
             return Ok(country);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateCountry(Guid id, Country country)
+        public async Task<IActionResult> UpdateCountry(Guid id, Country country)
         {
-            var validationResult = _countryValidator.Validate(country);
+            var validationResult = await _countryValidator.ValidateAsync(country);
 
             if (!validationResult.IsValid)
             {
                 return BadRequest(validationResult.Errors);
             }
             
-            var countryToUpdate = _context.Countries.Find(id);
+            var countryToUpdate = await _context.Countries.FindAsync(id);
 
             if (countryToUpdate is null)
             {
@@ -70,15 +71,15 @@ namespace WorkshopDemoAPI.Controllers
             countryToUpdate.Name = country.Name;
             countryToUpdate.IsoCountryCode = country.IsoCountryCode;
             _context.Countries.Update(countryToUpdate);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteCountry(Guid id)
+        public async Task<IActionResult> DeleteCountry(Guid id)
         {
-            var countryToDelete = _context.Countries.Find(id);
+            var countryToDelete = await _context.Countries.FindAsync(id);
 
             if (countryToDelete is null)
             {
@@ -86,7 +87,7 @@ namespace WorkshopDemoAPI.Controllers
             }
             
             _context.Countries.Remove(countryToDelete);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             
             return NoContent();
         }
