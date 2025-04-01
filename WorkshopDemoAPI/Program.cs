@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<WorkshopDemoDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IEmailService, MailchimpEmailServiceProvider>();
+builder.Services.AddScoped<IClientCreditSystem, ClientCreditSystem>();
 
 var app = builder.Build();
 
@@ -36,6 +37,7 @@ app.Use(async (context, next) =>
 });
 
 app.UseCorrelationIdMiddleware();
+app.UseClientCreditMiddleware();
 // app.UseStaticFiles();
 // app.UseCookiePolicy();
 // app.UseRateLimiter();
