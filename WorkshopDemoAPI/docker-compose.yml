@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: "postgres:latest"
+    restart: unless-stopped
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgresql_test_data:/var/lib/postgresql/data/
+    environment:
+      ALLOW_EMPTY_PASSWORD: 'yes'
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: WorkshopDatabase
+
+volumes:
+  postgresql_test_data:
