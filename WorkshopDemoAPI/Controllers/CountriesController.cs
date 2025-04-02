@@ -16,6 +16,7 @@ namespace WorkshopDemoAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Country>>> GetCountries()
         {
+            throw new Exception("Just for fun");
             var countries = await _context.Countries.ToListAsync();
             
             return Ok(countries);
@@ -37,12 +38,7 @@ namespace WorkshopDemoAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddCountry(Country country)
         {
-            var validationResult = await _countryValidator.ValidateAsync(country);
-
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
-            }
+            await _countryValidator.ValidateAndThrowAsync(country);
             
             country.Id = Guid.NewGuid();
             await _context.Countries.AddAsync(country);
@@ -54,12 +50,7 @@ namespace WorkshopDemoAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCountry(Guid id, Country country)
         {
-            var validationResult = await _countryValidator.ValidateAsync(country);
-
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
-            }
+            await _countryValidator.ValidateAndThrowAsync(country);
             
             var countryToUpdate = await _context.Countries.FindAsync(id);
 
