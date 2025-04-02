@@ -10,6 +10,8 @@ namespace WorkshopDemoAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [SynchronousAttributeCustomFilter("CountriesController")]
+    // [Authorize]
+    // [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
     public class CountriesController(WorkshopDemoDbContext context, IValidator<Country> countryValidator) : ControllerBase
     {
         private readonly WorkshopDemoDbContext _context = context ?? throw new ArgumentNullException(nameof(context));
