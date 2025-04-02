@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WorkshopDemoAPI.Filters;
 
 namespace WorkshopDemoAPI.Controllers;
 
@@ -19,6 +20,8 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
+    [SynchronousAttributeCustomFilter("GetWeatherForecastAction")]
+    [AsynchronousAttributeCustomFilter("GetWeatherForecastAction")]
     public IEnumerable<WeatherForecast> Get()
     {
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast

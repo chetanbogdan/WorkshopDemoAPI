@@ -3,17 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WorkshopDemoAPI.Data;
 using WorkshopDemoAPI.Entities;
+using WorkshopDemoAPI.Filters;
 
 namespace WorkshopDemoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [SynchronousAttributeCustomFilter("CountriesController")]
     public class CountriesController(WorkshopDemoDbContext context, IValidator<Country> countryValidator) : ControllerBase
     {
         private readonly WorkshopDemoDbContext _context = context ?? throw new ArgumentNullException(nameof(context));
         private readonly IValidator<Country> _countryValidator = countryValidator ?? throw new ArgumentNullException(nameof(countryValidator));
 
         [HttpGet]
+        [AsynchronousAttributeCustomFilter("GetCountries")]
         public async Task<ActionResult<List<Country>>> GetCountries()
         {
             var countries = await _context.Countries.ToListAsync();
