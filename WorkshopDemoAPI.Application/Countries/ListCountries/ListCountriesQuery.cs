@@ -1,5 +1,6 @@
+using Ardalis.Result;
 using MediatR;
 
 namespace WorkshopDemoAPI.Application.Countries.ListCountries;
 
-public record ListCountriesQuery : IRequest<List<CountryDto>>;
+public record ListCountriesQuery : IRequest<Result<List<CountryDto>>>;

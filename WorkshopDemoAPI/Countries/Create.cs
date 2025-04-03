@@ -1,3 +1,4 @@
+using Ardalis.Result.AspNetCore;
 using FastEndpoints;
 using MediatR;
 using WorkshopDemoAPI.Application.Countries.CreateCountry;
@@ -31,9 +32,17 @@ public class Create : Endpoint<CreateCountryRequest, CreateCountryResponse>
         
         var result = await _mediator.Send(command, ct);
 
-        Response = new CreateCountryResponse
+        if (result.IsSuccess)
         {
-            Country = result
-        };
+            Response = new CreateCountryResponse
+            {
+                Country = result.Value
+            };
+        }
+        else
+        {
+            await SendResultAsync(result.ToMinimalApiResult());
+        }
+
     }
 }

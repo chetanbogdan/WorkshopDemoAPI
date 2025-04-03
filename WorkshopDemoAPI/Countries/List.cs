@@ -1,3 +1,4 @@
+using Ardalis.Result.AspNetCore;
 using FastEndpoints;
 using MediatR;
 using WorkshopDemoAPI.Application.Countries.ListCountries;
@@ -30,9 +31,16 @@ public class List : EndpointWithoutRequest<ListCountriesResponse>
         
         var result = await _mediator.Send(command, ct);
 
-        Response = new ListCountriesResponse
+        if (result.IsSuccess)
         {
-            Countries = result
-        };
+            Response = new ListCountriesResponse
+            {
+                Countries = result.Value
+            };
+        }
+        else
+        {
+            await SendResultAsync(result.ToMinimalApiResult());
+        }
     }
 }
