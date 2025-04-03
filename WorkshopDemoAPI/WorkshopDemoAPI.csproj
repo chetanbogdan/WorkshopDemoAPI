@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WorkshopDemoAPI.DAL\WorkshopDemoAPI.DAL.csproj" />
+    <ProjectReference Include="..\WorkshopDemoAPI.Application\WorkshopDemoAPI.Application.csproj" />
   </ItemGroup>
 
 </Project>

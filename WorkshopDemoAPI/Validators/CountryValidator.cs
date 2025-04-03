@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using WorkshopDemoAPI.DAL.Entities;
+using WorkshopDemoAPI.Application.Countries;
 
 namespace WorkshopDemoAPI.Validators;
 
-public class CountryValidator : AbstractValidator<Country>
+public class CountryValidator : AbstractValidator<CountryDto>
 {
     public CountryValidator()
     {
