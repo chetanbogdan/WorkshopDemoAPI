@@ -1,4 +1,5 @@
 using System.Reflection;
+using FastEndpoints;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using WorkshopDemoAPI.Application.Countries.CreateCountry;
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,6 +18,8 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(CreateCountryCommand).Assembly);
 });
+
+builder.Services.AddFastEndpoints();
 
 var app = builder.Build();
 
@@ -29,8 +32,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
-app.MapControllers();
+app.UseFastEndpoints();
+
+//app.MapControllers();
 
 app.Run();
