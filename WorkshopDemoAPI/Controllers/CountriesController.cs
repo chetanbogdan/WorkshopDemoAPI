@@ -8,7 +8,7 @@ namespace WorkshopDemoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountriesController(WorkshopDemoDbContext context, IValidator<Country> countryValidator) : ControllerBase
+    public class CountriesController(IValidator<Country> countryValidator) : ControllerBase
     {
         private readonly WorkshopDemoDbContext _context = context ?? throw new ArgumentNullException(nameof(context));
         private readonly IValidator<Country> _countryValidator = countryValidator ?? throw new ArgumentNullException(nameof(countryValidator));

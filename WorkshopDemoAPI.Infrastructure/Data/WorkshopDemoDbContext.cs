@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using WorkshopDemoAPI.Entities;
+using WorkshopDemoAPI.Application.Common;
+using WorkshopDemoAPI.Domain.Entities;
 
-namespace WorkshopDemoAPI.Data;
+namespace WorkshopDemoAPI.Infrastructure.Data;
 
-public class WorkshopDemoDbContext(DbContextOptions<WorkshopDemoDbContext> options) : DbContext(options)
+public class WorkshopDemoDbContext(DbContextOptions<WorkshopDemoDbContext> options) : DbContext(options), IWorkshopDemoDbContext
 {
     public DbSet<Country> Countries => Set<Country>();
 
