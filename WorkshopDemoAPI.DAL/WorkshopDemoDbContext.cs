@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using WorkshopDemoAPI.Entities;
+using WorkshopDemoAPI.DAL.Entities;
 
-namespace WorkshopDemoAPI.Data;
+namespace WorkshopDemoAPI.DAL;
 
 public class WorkshopDemoDbContext(DbContextOptions<WorkshopDemoDbContext> options) : DbContext(options)
 {

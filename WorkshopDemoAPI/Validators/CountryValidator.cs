@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using WorkshopDemoAPI.Entities;
+using WorkshopDemoAPI.DAL.Entities;
 
 namespace WorkshopDemoAPI.Validators;
 

@@ -1,4 +1,4 @@
-﻿namespace WorkshopDemoAPI.Entities;
+﻿namespace WorkshopDemoAPI.DAL.Entities;
 
 public class Country
 {

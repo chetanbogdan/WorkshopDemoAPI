@@ -1,8 +1,8 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WorkshopDemoAPI.Data;
-using WorkshopDemoAPI.Entities;
+using WorkshopDemoAPI.DAL;
+using WorkshopDemoAPI.DAL.Entities;
 
 namespace WorkshopDemoAPI.Controllers
 {

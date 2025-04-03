@@ -1,7 +1,7 @@
 using System.Reflection;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using WorkshopDemoAPI.Data;
+using WorkshopDemoAPI.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 

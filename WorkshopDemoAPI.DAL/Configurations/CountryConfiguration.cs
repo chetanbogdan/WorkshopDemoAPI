@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WorkshopDemoAPI.Entities;
+using WorkshopDemoAPI.DAL.Entities;
 
-namespace WorkshopDemoAPI.Data.Configurations;
+namespace WorkshopDemoAPI.DAL.Configurations;
 
 public class CountryConfiguration : IEntityTypeConfiguration<Country>
 {

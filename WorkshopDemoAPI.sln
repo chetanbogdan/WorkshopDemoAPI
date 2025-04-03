@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopDemoAPI", "WorkshopDemoAPI\WorkshopDemoAPI.csproj", "{B996ED24-0B04-4ABC-AE39-4C22F4D1561E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopDemoAPI.DAL", "WorkshopDemoAPI.DAL\WorkshopDemoAPI.DAL.csproj", "{405475DF-4D26-49DB-A9B7-C28086747F86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B996ED24-0B04-4ABC-AE39-4C22F4D1561E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B996ED24-0B04-4ABC-AE39-4C22F4D1561E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B996ED24-0B04-4ABC-AE39-4C22F4D1561E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{405475DF-4D26-49DB-A9B7-C28086747F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405475DF-4D26-49DB-A9B7-C28086747F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405475DF-4D26-49DB-A9B7-C28086747F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405475DF-4D26-49DB-A9B7-C28086747F86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
